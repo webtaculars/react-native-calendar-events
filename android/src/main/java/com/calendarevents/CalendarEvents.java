@@ -118,7 +118,8 @@ public class CalendarEvents extends ReactContextBaseJavaModule {
         Uri uri = CalendarContract.Calendars.CONTENT_URI;
 
         String IS_PRIMARY = CalendarContract.Calendars.IS_PRIMARY == null ? "0" : CalendarContract.Calendars.IS_PRIMARY;
-
+        String CALENDARS_WHERE_WRITEABLE_VISIBLE = CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL + ">=" + CalendarContract.Calendars.CAL_ACCESS_CONTRIBUTOR + " AND " + CalendarContract.Calendars.VISIBLE + "=1";
+        
         cursor = cr.query(uri, new String[]{
                 CalendarContract.Calendars._ID,
                 CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
@@ -128,7 +129,10 @@ public class CalendarEvents extends ReactContextBaseJavaModule {
                 CalendarContract.Calendars.ALLOWED_AVAILABILITY,
                 CalendarContract.Calendars.ACCOUNT_TYPE,
                 CalendarContract.Calendars.CALENDAR_COLOR
-        }, null, null, null);
+        }, CALENDARS_WHERE_WRITEABLE_VISIBLE, new String[]{}, null);
+
+        
+        
 
         return serializeEventCalendars(cursor);
     }
