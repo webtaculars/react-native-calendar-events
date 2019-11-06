@@ -840,8 +840,11 @@ public class CalendarEvents extends ReactContextBaseJavaModule {
                 reminderValues.put(CalendarContract.Reminders.EVENT_ID, eventID);
                 reminderValues.put(CalendarContract.Reminders.MINUTES, minutes);
                 reminderValues.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+                try{
+                    resolver.insert(CalendarContract.Reminders.CONTENT_URI, reminderValues);
+                } catch(Exception ie){
 
-                resolver.insert(CalendarContract.Reminders.CONTENT_URI, reminderValues);
+                }
             }
         }
     }
